@@ -1,8 +1,8 @@
 # raft-kv
 
-A C++ implementation of RAFT consensus algorithm based on [asio](https://github.com/boostorg/asio). It provides a key-value store compatible with the [redis protocol](https://redis.io/topics/protocol).
+这是一个基于 raft 共识算法的 etcd 数据库，它基于 redis 实现了一种 k-v 存储方式，数据通信使用 asio 框架
 
-## Getting Started
+## 如何运行
 
 ### Build
     
@@ -12,15 +12,14 @@ A C++ implementation of RAFT consensus algorithm based on [asio](https://github.
     cmake .. -DCMAKE_BUILD_TYPE=Release
     make -j8
     
-### Running a cluster
+### 运行集群
 
-First install [goreman](https://github.com/mattn/goreman), which manages Procfile-based applications.
+首先安装 [goreman](https://github.com/mattn/goreman), 它可以实现对进程，然后执行下面的指令
 
     goreman start
     
     
-### Test
-
+### 测试
 install [redis-cli](https://github.com/antirez/redis), a redis console client.
 
     redis-cli -p 63791
@@ -29,14 +28,14 @@ install [redis-cli](https://github.com/antirez/redis), a redis console client.
     127.0.0.1:63791> get mykey
     "myvalue"
     
-remove a node and replace the myvalue with "new-value" to check cluster availability:
+先将 node 2 暂停，并且对 key 值进行更新：
 
     goreman run stop node2
     redis-cli -p 63791
     127.0.0.1:63791> set mykey new-value
     OK
     
-bring the node back up and verify it recovers with the updated value "new-value":
+重新将 node 2 启动并查看更新后的值
 
     redis-cli -p 63792
     127.0.0.1:63792> KEYS *
