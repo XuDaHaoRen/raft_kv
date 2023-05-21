@@ -6,7 +6,7 @@
 
 ### Build
     
-    git clone https://github.com/jinyyu/raft-kv.git
+    git clone https://github.com/XuDaHaoRen/raft_kv.git
     mkdir -p raft-kv/build
     cd raft-kv/build
     cmake .. -DCMAKE_BUILD_TYPE=Release
